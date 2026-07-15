@@ -1,0 +1,43 @@
+{
+  "name": "myagent-studio",
+  "version": "3.0.0",
+  "description": "Secure desktop shell for MyAgent Community Edition",
+  "main": "main.cjs",
+  "author": "MyAgent Ecosystem",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never"
+  },
+  "devDependencies": {
+    "electron": "43.1.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "ai.myagent.studio",
+    "productName": "MyAgent Studio",
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "offline.html",
+      "offline.js",
+      "offline.css"
+    ],
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.productivity"
+    }
+  }
+}

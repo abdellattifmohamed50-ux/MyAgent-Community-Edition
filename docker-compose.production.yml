@@ -1,0 +1,84 @@
+name: myagent-production
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-myagent}
+      POSTGRES_USER: ${POSTGRES_USER:-myagent}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-myagent} -d ${POSTGRES_DB:-myagent}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [backend]
+
+  engine:
+    build:
+      context: ./MyAgent-Engine
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      APP_VERSION: 3.0.0
+      API_PREFIX: /api/v1
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-myagent}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-myagent}
+      AUTO_CREATE_TABLES: "false"
+      SEED_DEMO_USER: "false"
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY to at least 32 random characters}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET to at least 32 random characters}
+      CORS_ORIGINS: ${CORS_ORIGINS:?Set CORS_ORIGINS to HTTPS origins}
+      TRUSTED_HOSTS: ${TRUSTED_HOSTS:?Set TRUSTED_HOSTS}
+      DEFAULT_PROVIDER: ${DEFAULT_PROVIDER:-mock}
+      PROVIDER_FALLBACKS: ${PROVIDER_FALLBACKS:-mock}
+      FEATURE_TOOLS: ${FEATURE_TOOLS:-true}
+      FEATURE_RAG: ${FEATURE_RAG:-false}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      KIMI_API_KEY: ${KIMI_API_KEY:-}
+      ZAI_API_KEY: ${ZAI_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    networks: [backend, frontend]
+
+  web:
+    build:
+      context: ./MyAgent-Web
+    restart: unless-stopped
+    depends_on:
+      engine:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    networks: [frontend]
+
+networks:
+  backend:
+    internal: true
+  frontend:
+
+volumes:
+  postgres_data:

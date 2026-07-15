@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b10" />
+    <meta name="description" content="MyAgent — Personal AI Assistant" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'" />
+    <title>MyAgent</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main id="authView" class="auth-shell">
+      <section class="auth-visual" aria-hidden="true">
+        <div class="orb orb-a"></div>
+        <div class="orb orb-b"></div>
+        <div class="visual-copy">
+          <span class="eyebrow">PERSONAL MULTI-AGENT ASSISTANT</span>
+          <h1>ذكاء واحد.<br />على كل أجهزتك.</h1>
+          <p>ذاكرة، معرفة، أدوات ومزوّدات متعددة — بعقل سحابي مشترك.</p>
+        </div>
+      </section>
+      <section class="auth-panel">
+        <form id="authForm" class="auth-card">
+          <div class="brand"><span class="brand-mark">✦</span><span>MyAgent</span></div>
+          <div>
+            <p class="eyebrow">مرحبًا بعودتك</p>
+            <h2 id="authTitle">تسجيل الدخول</h2>
+          </div>
+          <label id="nameField" class="field hidden">
+            <span>الاسم</span>
+            <input id="displayName" autocomplete="name" minlength="2" />
+          </label>
+          <label class="field">
+            <span>البريد الإلكتروني</span>
+            <input id="email" type="email" autocomplete="email" required />
+          </label>
+          <label class="field">
+            <span>كلمة المرور</span>
+            <input id="password" type="password" autocomplete="current-password" minlength="8" required />
+          </label>
+          <p id="authError" class="error" role="alert"></p>
+          <button id="authSubmit" class="primary-btn" type="submit">دخول آمن <span>←</span></button>
+          <button id="authToggle" class="text-btn" type="button">مستخدم جديد؟ أنشئ حسابًا</button>
+          <p class="demo-note">بيانات العرض جاهزة عند تشغيل وضع Demo المحلي.</p>
+        </form>
+      </section>
+    </main>
+
+    <main id="appView" class="app-shell hidden">
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-head">
+          <div class="brand"><span class="brand-mark">✦</span><span>MyAgent</span></div>
+          <button id="closeSidebar" class="icon-btn mobile-only" aria-label="إغلاق">×</button>
+        </div>
+        <button id="newChat" class="new-chat"><span>＋</span> محادثة جديدة</button>
+        <div class="section-label">المحادثات</div>
+        <nav id="conversationList" class="conversation-list" aria-label="المحادثات"></nav>
+        <div class="sidebar-actions">
+          <button id="knowledgeOpen" class="sidebar-btn"><span>▤</span> قاعدة المعرفة</button>
+          <button id="installApp" class="sidebar-btn hidden"><span>⇩</span> تثبيت التطبيق</button>
+        </div>
+        <div class="profile-row">
+          <span id="avatar" class="avatar">M</span>
+          <span class="profile-copy"><strong id="userName">MyAgent User</strong><small id="userEmail"></small></span>
+          <button id="logout" class="icon-btn" title="تسجيل الخروج">↪</button>
+        </div>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <button id="openSidebar" class="icon-btn mobile-only" aria-label="القائمة">☰</button>
+          <div id="connectionStatus" class="status"><span class="status-dot"></span><span id="connectionText">Engine متصل</span></div>
+          <label class="provider-field">
+            <span>المزوّد</span>
+            <select id="providerSelect" aria-label="مزوّد الذكاء"></select>
+          </label>
+        </header>
+        <section id="messages" class="messages" aria-live="polite">
+          <div id="emptyState" class="empty-state">
+            <div class="hero-mark">✦</div>
+            <span class="eyebrow">MYAGENT CLOUD BRAIN</span>
+            <h2>كيف أساعدك اليوم؟</h2>
+            <p>ابدأ محادثة آمنة. الذاكرة والمعرفة والأدوات تعمل داخل المحرك السحابي.</p>
+            <div class="suggestions">
+              <button data-prompt="لخّص لي خطة العمل القادمة">لخّص خطة عمل</button>
+              <button data-prompt="ساعدني في تحليل فكرة مشروع">حلّل فكرة مشروع</button>
+              <button data-prompt="اكتب لي قائمة مهام مرتبة حسب الأولوية">رتّب قائمة مهام</button>
+            </div>
+          </div>
+        </section>
+        <footer class="composer-shell">
+          <form id="chatForm" class="composer">
+            <textarea id="messageInput" rows="1" maxlength="20000" placeholder="اسأل MyAgent…" required></textarea>
+            <button id="sendButton" class="send-btn" type="submit" aria-label="إرسال">↑</button>
+          </form>
+          <small>قد يخطئ الذكاء الاصطناعي؛ راجع المعلومات المهمة.</small>
+        </footer>
+      </section>
+    </main>
+
+    <dialog id="knowledgeDialog" class="dialog">
+      <form method="dialog" class="dialog-head">
+        <div><span class="eyebrow">PRIVATE RAG</span><h2>قاعدة المعرفة</h2></div>
+        <button class="icon-btn" value="cancel" aria-label="إغلاق">×</button>
+      </form>
+      <div class="knowledge-layout">
+        <form id="knowledgeForm" class="knowledge-form">
+          <label class="field"><span>العنوان</span><input id="knowledgeTitle" required maxlength="255" /></label>
+          <label class="field"><span>المحتوى</span><textarea id="knowledgeContent" required maxlength="2000000" rows="10"></textarea></label>
+          <button class="primary-btn" type="submit">إضافة للمعرفة</button>
+        </form>
+        <div><div class="section-label">المصادر المحفوظة</div><div id="knowledgeList" class="knowledge-list"></div></div>
+      </div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status"></div>
+    <script src="/app.js" defer></script>
+  </body>
+</html>

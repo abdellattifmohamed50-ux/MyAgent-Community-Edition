@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /MyAgent-Engine
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /MyAgent-Studio
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /MyAgent-Engine
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /MyAgent-Web
+    schedule:
+      interval: weekly

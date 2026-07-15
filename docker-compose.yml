@@ -1,0 +1,64 @@
+name: myagent-community
+
+services:
+  engine:
+    build:
+      context: ./MyAgent-Engine
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: development
+      APP_VERSION: 3.0.0
+      API_PREFIX: /api/v1
+      DATABASE_URL: sqlite+aiosqlite:////app/data/myagent.db
+      AUTO_CREATE_TABLES: "false"
+      SEED_DEMO_USER: "false"
+      SECRET_KEY: ${SECRET_KEY:-local-community-secret-change-before-production}
+      JWT_SECRET: ${JWT_SECRET:-local-community-jwt-secret-change-before-production}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080}
+      TRUSTED_HOSTS: ${TRUSTED_HOSTS:-localhost,127.0.0.1,engine,web}
+      DEFAULT_PROVIDER: ${DEFAULT_PROVIDER:-mock}
+      PROVIDER_FALLBACKS: ${PROVIDER_FALLBACKS:-mock}
+      FEATURE_TOOLS: ${FEATURE_TOOLS:-true}
+      FEATURE_RAG: ${FEATURE_RAG:-false}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      KIMI_API_KEY: ${KIMI_API_KEY:-}
+      ZAI_API_KEY: ${ZAI_API_KEY:-}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+    volumes:
+      - engine_data:/app/data
+    ports:
+      - "8000:8000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/health/ready', timeout=3)"
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 15s
+    networks: [app]
+
+  web:
+    build:
+      context: ./MyAgent-Web
+    restart: unless-stopped
+    depends_on:
+      engine:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    networks: [app]
+
+networks:
+  app:
+
+volumes:
+  engine_data:

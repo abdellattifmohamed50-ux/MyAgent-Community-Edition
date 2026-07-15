@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "myagent-engine"
+version = "3.0.0"
+description = "Simple modular AI agent backend for MyAgent Community Edition"
+requires-python = ">=3.11"
+license = "MIT"
+readme = "README.md"
+dependencies = [
+  "fastapi==0.139.0",
+  "uvicorn[standard]==0.51.0",
+  "pydantic==2.13.4",
+  "pydantic-settings==2.14.2",
+  "SQLAlchemy==2.0.51",
+  "asyncpg==0.31.0",
+  "aiosqlite==0.22.1",
+  "alembic==1.18.5",
+  "PyJWT==2.13.0",
+  "pwdlib[argon2]==0.3.0",
+  "httpx==0.28.1",
+  "python-multipart==0.0.32",
+  "email-validator==2.3.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==9.1.1",
+  "pytest-asyncio==1.4.0",
+  "pytest-cov==7.1.0",
+  "ruff==0.15.21",
+  "mypy==2.3.0",
+  "bandit==1.9.4",
+  "pip-audit==2.10.1"
+]
+
+[tool.setuptools.packages.find]
+include = ["apps*", "core*", "agents*", "services*", "repositories*", "models*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = [".deps", ".deps-current", ".venv", "build", "dist"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_ignores = true
+warn_return_any = true
+ignore_missing_imports = true
+exclude = "(^|/)(.deps|.deps-current|.venv|build|dist|migrations)/"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "--strict-markers --strict-config"

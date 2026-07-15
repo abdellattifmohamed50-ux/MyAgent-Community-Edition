@@ -1,0 +1,14 @@
+{
+  "name": "MyAgent — Personal AI Assistant",
+  "short_name": "MyAgent",
+  "description": "A secure cloud-first AI workspace.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b10",
+  "theme_color": "#0b0b10",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
