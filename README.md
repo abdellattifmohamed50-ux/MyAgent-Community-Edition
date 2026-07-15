@@ -1,5 +1,14 @@
-# MyAgent Community Edition v3.0
+# 🚀 MyAgent Community Edition v3.0
 
+Enterprise-grade AI Agent Platform with FastAPI, Multi-Provider LLM Support, RAG, Vision, Tool Calling, and Modular Architecture.
+
+![Release](https://img.shields.io/github/v/release/abdellattifmohamed50-ux/MyAgent-Community-Edition)
+![License](https://img.shields.io/github/license/abdellattifmohamed50-ux/MyAgent-Community-Edition)
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![Docker](https://img.shields.io/badge/Docker-Supported-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-success)
+
+---
 MyAgent is a simple, modular AI-agent platform with a FastAPI engine, static web
 client, Flutter client, and Electron desktop shell. Community Edition starts
 with SQLite and the built-in mock provider, so no external infrastructure or
