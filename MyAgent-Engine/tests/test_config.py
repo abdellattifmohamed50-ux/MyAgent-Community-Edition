@@ -10,9 +10,16 @@ def test_settings_defaults_are_safe_for_development(monkeypatch: pytest.MonkeyPa
     assert settings.api_port == 8000
 
 
-def test_production_rejects_default_secrets() -> None:
+def test_production_rejects_default_secrets(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("SECRET_KEY", raising=False)
+    monkeypatch.delenv("JWT_SECRET", raising=False)
     with pytest.raises(ValueError, match="Production secrets"):
-        Settings(ENVIRONMENT="production", SEED_DEMO_USER=False)
+        Settings(
+            ENVIRONMENT="production",
+            DATABASE_URL="postgresql+asyncpg://postgres:postgres@localhost:5432/myagent",
+            CORS_ORIGINS="https://app.example.com",
+            SEED_DEMO_USER=False,
+        )
 
 
 def test_production_rejects_sqlite() -> None:
