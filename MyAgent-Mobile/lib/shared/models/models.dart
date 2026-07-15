@@ -7,11 +7,11 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    id: json['id'] as String,
-    email: json['email'] as String,
-    displayName: json['display_name'] as String,
-    role: json['role'] as String,
-  );
+        id: json['id'] as String,
+        email: json['email'] as String,
+        displayName: json['display_name'] as String,
+        role: json['role'] as String,
+      );
 
   final String id;
   final String email;
@@ -27,10 +27,10 @@ class TokenBundle {
   });
 
   factory TokenBundle.fromJson(Map<String, dynamic> json) => TokenBundle(
-    accessToken: json['access_token'] as String,
-    refreshToken: json['refresh_token'] as String,
-    user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
-  );
+        accessToken: json['access_token'] as String,
+        refreshToken: json['refresh_token'] as String,
+        user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      );
 
   final String accessToken;
   final String refreshToken;
@@ -90,11 +90,11 @@ class ChatReply {
   });
 
   factory ChatReply.fromJson(Map<String, dynamic> json) => ChatReply(
-    conversationId: json['conversation_id'] as String,
-    message: json['message'] as String,
-    provider: json['provider'] as String,
-    model: json['model'] as String,
-  );
+        conversationId: json['conversation_id'] as String,
+        message: json['message'] as String,
+        provider: json['provider'] as String,
+        model: json['model'] as String,
+      );
 
   final String conversationId;
   final String message;
@@ -111,11 +111,11 @@ class ProviderModel {
   });
 
   factory ProviderModel.fromJson(Map<String, dynamic> json) => ProviderModel(
-    name: json['name'] as String,
-    model: json['model'] as String,
-    configured: json['configured'] as bool,
-    healthy: json['healthy'] as bool,
-  );
+        name: json['name'] as String,
+        model: json['model'] as String,
+        configured: json['configured'] as bool,
+        healthy: json['healthy'] as bool,
+      );
 
   final String name;
   final String model;

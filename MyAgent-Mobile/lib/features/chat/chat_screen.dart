@@ -55,9 +55,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
             _ProviderMenu(state: state),
             IconButton(
               tooltip: 'محادثة جديدة',
-              onPressed: ref
-                  .read(chatControllerProvider.notifier)
-                  .newConversation,
+              onPressed:
+                  ref.read(chatControllerProvider.notifier).newConversation,
               icon: const Icon(Icons.add_comment_outlined),
             ),
           ],
@@ -70,9 +69,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 content: const Text('تعذر إكمال الطلب. تحقق من الاتصال.'),
                 actions: [
                   TextButton(
-                    onPressed: ref
-                        .read(chatControllerProvider.notifier)
-                        .initialize,
+                    onPressed:
+                        ref.read(chatControllerProvider.notifier).initialize,
                     child: const Text('إعادة المحاولة'),
                   ),
                 ],
@@ -81,14 +79,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               child: state.loading
                   ? const Center(child: CircularProgressIndicator())
                   : state.messages.isEmpty
-                  ? const _EmptyChat()
-                  : ListView.builder(
-                      controller: _scroll,
-                      padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
-                      itemCount: state.messages.length,
-                      itemBuilder: (context, index) =>
-                          _MessageBubble(message: state.messages[index]),
-                    ),
+                      ? const _EmptyChat()
+                      : ListView.builder(
+                          controller: _scroll,
+                          padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+                          itemCount: state.messages.length,
+                          itemBuilder: (context, index) =>
+                              _MessageBubble(message: state.messages[index]),
+                        ),
             ),
             _Composer(
               controller: _message,
@@ -229,9 +227,8 @@ class _MessageBubble extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
-          color: user
-              ? colors.primaryContainer
-              : colors.surfaceContainerHighest,
+          color:
+              user ? colors.primaryContainer : colors.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(18),
         ),
         child: Column(
@@ -264,38 +261,38 @@ class _Composer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SafeArea(
-    top: false,
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: TextField(
-              controller: controller,
-              minLines: 1,
-              maxLines: 6,
-              textInputAction: TextInputAction.newline,
-              decoration: const InputDecoration(
-                hintText: 'اسأل MyAgent…',
-                prefixIcon: Icon(Icons.auto_awesome),
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 12),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  minLines: 1,
+                  maxLines: 6,
+                  textInputAction: TextInputAction.newline,
+                  decoration: const InputDecoration(
+                    hintText: 'اسأل MyAgent…',
+                    prefixIcon: Icon(Icons.auto_awesome),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: 8),
+              IconButton.filled(
+                onPressed: sending ? null : onSend,
+                icon: sending
+                    ? const SizedBox.square(
+                        dimension: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.arrow_upward),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          IconButton.filled(
-            onPressed: sending ? null : onSend,
-            icon: sending
-                ? const SizedBox.square(
-                    dimension: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : const Icon(Icons.arrow_upward),
-          ),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }
 
 class _EmptyChat extends StatelessWidget {
@@ -303,25 +300,26 @@ class _EmptyChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-    child: Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(
-            Icons.auto_awesome,
-            size: 54,
-            color: Theme.of(context).colorScheme.primary,
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.auto_awesome,
+                size: 54,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'كيف أساعدك اليوم؟',
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              const SizedBox(height: 8),
+              const Text(
+                  'ابدأ محادثة؛ الذاكرة والأدوات تعمل من المحرك السحابي.'),
+            ],
           ),
-          const SizedBox(height: 18),
-          Text(
-            'كيف أساعدك اليوم؟',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-          const SizedBox(height: 8),
-          const Text('ابدأ محادثة؛ الذاكرة والأدوات تعمل من المحرك السحابي.'),
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }

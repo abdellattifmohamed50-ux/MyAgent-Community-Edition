@@ -23,9 +23,8 @@ class AuthController extends StateNotifier<AuthState> {
     state = const AuthState(status: AuthStatus.loading);
     final user = await _repository.restore();
     state = AuthState(
-      status: user == null
-          ? AuthStatus.unauthenticated
-          : AuthStatus.authenticated,
+      status:
+          user == null ? AuthStatus.unauthenticated : AuthStatus.authenticated,
       user: user,
     );
   }

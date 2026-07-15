@@ -58,8 +58,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               ),
                               validator: (value) =>
                                   (value?.trim().length ?? 0) < 2
-                                  ? 'اكتب الاسم'
-                                  : null,
+                                      ? 'اكتب الاسم'
+                                      : null,
                             ),
                             const SizedBox(height: 14),
                           ],
@@ -72,8 +72,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             validator: (value) =>
                                 !(value?.contains('@') ?? false)
-                                ? 'اكتب بريدًا صحيحًا'
-                                : null,
+                                    ? 'اكتب بريدًا صحيحًا'
+                                    : null,
                           ),
                           const SizedBox(height: 14),
                           TextFormField(
@@ -172,25 +172,26 @@ class _Brand extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      Container(
-        width: 72,
-        height: 72,
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [Color(0xFF7557FF), Color(0xFF35D0BA)],
+        children: [
+          Container(
+            width: 72,
+            height: 72,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [Color(0xFF7557FF), Color(0xFF35D0BA)],
+              ),
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child:
+                const Icon(Icons.auto_awesome, color: Colors.white, size: 36),
           ),
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: const Icon(Icons.auto_awesome, color: Colors.white, size: 36),
-      ),
-      const SizedBox(height: 16),
-      Text('MyAgent', style: Theme.of(context).textTheme.headlineMedium),
-      const SizedBox(height: 6),
-      Text(
-        'عقلك الذكي المشترك على كل أجهزتك',
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-    ],
-  );
+          const SizedBox(height: 16),
+          Text('MyAgent', style: Theme.of(context).textTheme.headlineMedium),
+          const SizedBox(height: 6),
+          Text(
+            'عقلك الذكي المشترك على كل أجهزتك',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ],
+      );
 }

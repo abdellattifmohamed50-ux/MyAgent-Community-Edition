@@ -57,7 +57,7 @@ class _MyAgentAppState extends ConsumerState<MyAgentApp> {
           borderSide: BorderSide.none,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       ),

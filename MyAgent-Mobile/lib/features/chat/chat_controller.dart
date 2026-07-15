@@ -36,18 +36,18 @@ class ChatState {
     String? error,
     bool clearConversation = false,
     bool clearError = false,
-  }) => ChatState(
-    conversations: conversations ?? this.conversations,
-    messages: messages ?? this.messages,
-    providers: providers ?? this.providers,
-    conversationId: clearConversation
-        ? null
-        : conversationId ?? this.conversationId,
-    selectedProvider: selectedProvider ?? this.selectedProvider,
-    loading: loading ?? this.loading,
-    sending: sending ?? this.sending,
-    error: clearError ? null : error ?? this.error,
-  );
+  }) =>
+      ChatState(
+        conversations: conversations ?? this.conversations,
+        messages: messages ?? this.messages,
+        providers: providers ?? this.providers,
+        conversationId:
+            clearConversation ? null : conversationId ?? this.conversationId,
+        selectedProvider: selectedProvider ?? this.selectedProvider,
+        loading: loading ?? this.loading,
+        sending: sending ?? this.sending,
+        error: clearError ? null : error ?? this.error,
+      );
 }
 
 class ChatController extends StateNotifier<ChatState> {
@@ -67,9 +67,8 @@ class ChatController extends StateNotifier<ChatState> {
       final conversations = values[0] as List<ConversationModel>;
       final providers = values[1] as List<ProviderModel>;
       if (revision != _viewRevision) return;
-      final ready = providers
-          .where((item) => item.configured && item.healthy)
-          .toList();
+      final ready =
+          providers.where((item) => item.configured && item.healthy).toList();
       state = state.copyWith(
         conversations: conversations,
         providers: providers,

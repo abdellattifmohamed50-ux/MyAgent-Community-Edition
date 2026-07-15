@@ -5,14 +5,14 @@ import '../security/token_store.dart';
 
 class ApiClient {
   ApiClient(this._tokens)
-    : dio = Dio(
-        BaseOptions(
-          baseUrl: AppConfig.apiBaseUrl,
-          connectTimeout: const Duration(seconds: 15),
-          receiveTimeout: const Duration(seconds: 90),
-          headers: const {'Content-Type': 'application/json'},
-        ),
-      ) {
+      : dio = Dio(
+          BaseOptions(
+            baseUrl: AppConfig.apiBaseUrl,
+            connectTimeout: const Duration(seconds: 15),
+            receiveTimeout: const Duration(seconds: 90),
+            headers: const {'Content-Type': 'application/json'},
+          ),
+        ) {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -90,8 +90,8 @@ class ApiClient {
 }
 
 bool _refreshExcluded(String path) => const {
-  '/auth/login',
-  '/auth/register',
-  '/auth/refresh',
-  '/auth/logout',
-}.any(path.endsWith);
+      '/auth/login',
+      '/auth/register',
+      '/auth/refresh',
+      '/auth/logout',
+    }.any(path.endsWith);

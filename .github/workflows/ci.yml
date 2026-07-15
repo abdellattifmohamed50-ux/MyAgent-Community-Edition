@@ -151,6 +151,14 @@ jobs:
           MYAGENT_API_URL=http://localhost:8080/api/v1 ./scripts/smoke-test.sh
       - if: always()
         run: |
+          echo "=== Container Status (docker ps -a) ==="
+          docker ps -a || true
+          echo "=== Docker Compose Status ==="
+          docker compose ps || true
+          docker compose -f docker-compose.production.yml ps || true
+          echo "=== Container Health Logs ==="
+          docker inspect --format='Container: {{.Name}} - Health: {{json .State.Health}}' $(docker ps -a -q) || true
+          echo "=== Container Logs ==="
           docker compose logs --no-color || true
           docker compose -f docker-compose.production.yml logs --no-color || true
           docker compose down -v || true
