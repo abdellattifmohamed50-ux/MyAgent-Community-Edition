@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="MyAgent Community Edition Banner" width="100%">
+  <p align="center">
+  <img src="docs/images/banner.png" alt="MyAgent Community Edition Banner">
+</p>
 </p>
 # 🚀 MyAgent Community Edition v3.0
 
