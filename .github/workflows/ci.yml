@@ -60,7 +60,7 @@ jobs:
           --cov-report=term-missing --cov-report=xml:coverage.xml
           --cov-fail-under=84
       - run: bandit -q -r apps core agents services repositories models
-      - run: pip-audit --strict
+      - run: pip-audit -r requirements.txt --strict
 
   engine-postgres:
     runs-on: ubuntu-latest
