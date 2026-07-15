@@ -3,7 +3,7 @@
 Enterprise-grade AI Agent Platform with Multi-Provider LLM Support, FastAPI, Tool Calling, RAG, Vision, and Modular Architecture.
 
 ![Release](https://img.shields.io/github/v/release/abdellattifmohamed50-ux/MyAgent-Community-Edition)
-![License](https://img.shields.io/github/license/abdellattifmohamed50-ux/MyAgent-Community-Edition)
+![License](https://img.shields.io/github/license/abdellattifmohamed50-ux/MyAgent-Community-Edition?style=for-the-badge)
 ![Python](https://img.shields.io/badge/Python-3.11+-blue)
 ![Docker](https://img.shields.io/badge/Docker-Supported-blue)
 ![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-success)
