@@ -1,6 +1,6 @@
 # 🚀 MyAgent Community Edition v3.0
 
-Enterprise-grade AI Agent Platform with FastAPI, Multi-Provider LLM Support, RAG, Vision, Tool Calling, and Modular Architecture.
+Enterprise-grade AI Agent Platform with Multi-Provider LLM Support, FastAPI, Tool Calling, RAG, Vision, and Modular Architecture.
 
 ![Release](https://img.shields.io/github/v/release/abdellattifmohamed50-ux/MyAgent-Community-Edition)
 ![License](https://img.shields.io/github/license/abdellattifmohamed50-ux/MyAgent-Community-Edition)
