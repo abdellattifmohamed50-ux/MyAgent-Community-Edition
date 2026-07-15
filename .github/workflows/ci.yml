@@ -133,6 +133,10 @@ jobs:
       TRUSTED_HOSTS: localhost,127.0.0.1,engine,web
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Make shell scripts executable
+        run: |
+          chmod +x scripts/smoke-test.sh
+          chmod +x scripts/package-release.sh
       - run: docker compose config --quiet
       - run: docker compose -f docker-compose.production.yml config --quiet
       - run: docker build -t myagent-community-engine:test .
