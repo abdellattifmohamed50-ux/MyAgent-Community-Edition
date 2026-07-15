@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="docs/images/banner.png" alt="MyAgent Community Edition Banner" width="100%">
+</p>
 # 🚀 MyAgent Community Edition v3.0
 
 Enterprise-grade AI Agent Platform with Multi-Provider LLM Support, FastAPI, Tool Calling, RAG, Vision, and Modular Architecture.
